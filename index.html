@@ -192,4 +192,1373 @@
 
       display: flex;
       justify-content: space-between;
-      align-items:
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-total {
+      font-size: 15px;
+    }
+
+
+    /*
+      STATUS
+    */
+
+    .status-box {
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .connecting {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .connected {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+
+    /*
+      EMPTY DATABASE
+    */
+
+    .empty-message {
+      text-align: center;
+      padding: 35px 15px;
+      color: #777;
+    }
+
+
+    /*
+      LAST UPDATED
+    */
+
+    .updated {
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      margin: 10px 0 20px;
+    }
+
+
+    /*
+      FOOTER
+    */
+
+    .footer {
+      text-align: center;
+      color: white;
+      padding: 20px 20px 30px;
+      font-size: 14px;
+    }
+
+
+    /*
+      MOBILE
+    */
+
+    @media (max-width: 700px) {
+
+      .header {
+        padding-top: 22px;
+      }
+
+      .header h1 {
+        font-size: 27px;
+      }
+
+      .header h2 {
+        font-size: 19px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 14px;
+        margin-bottom: 14px;
+      }
+
+      .game-name {
+        font-size: 25px;
+      }
+
+      th,
+      td {
+        padding: 9px 7px;
+        font-size: Yes. Now that **`admin.html → Firebase` is confirmed working**, replace your current `index.html` with the complete version below.
+
+This version listens continuously to `/tournament` in Firebase. So when you press **Save Scores to Firebase** from `admin.html`, an already-open `index.html` on another phone should update automatically.
+
+> One correction from my previous message: the Firebase library includes below are proper `<script src="..."></script>` tags. Make sure they remain exactly as shown.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Ayan's 11th Birthday Games</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #6c5ce7, #0984e3);
+      min-height: 100vh;
+      color: #222;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      padding: 32px 15px 22px;
+    }
+
+    .header h1 {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .header h2 {
+      font-size: 24px;
+      font-weight: normal;
+    }
+
+    .live {
+      display: inline-block;
+      margin-top: 14px;
+      background: #00b894;
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .connection {
+      display: inline-block;
+      margin-left: 8px;
+      margin-top: 14px;
+      background: rgba(255,255,255,0.20);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+    }
+
+    .card h2 {
+      margin-bottom: 18px;
+      color: #2d3436;
+    }
+
+    .current-game {
+      text-align: center;
+    }
+
+    .current-game-label {
+      color: #636e72;
+      font-size: 15px;
+    }
+
+    .current-game .game-name {
+      font-size: 30px;
+      font-weight: bold;
+      color: #6c5ce7;
+      margin-top: 7px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #6c5ce7;
+      color: white;
+      padding: 13px 10px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    tbody tr:hover {
+      background: #f7f7ff;
+    }
+
+    .rank {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .team-name {
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .player-name {
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .total {
+      color: #6c5ce7;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .gold {
+      background: #fff8d6;
+    }
+
+    .silver {
+      background: #f4f4f4;
+    }
+
+    .bronze {
+      background: #fff0e1;
+    }
+
+    .team-section {
+      margin-bottom: 28px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+
+    .team-title {
+      padding: 13px 16px;
+      background: #0984e3;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .updated {
+      text-align: center;
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      margin: 5px 0 20px;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 35px;
+      color: #777;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 35px;
+      color: #6c5ce7;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .error {
+      background: #ffeaea;
+      color: #b00020;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      color: white;
+      padding: 25px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+
+      .header {
+        padding-top: 24px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .header h2 {
+        font-size: 19px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      th,
+      td {
+        padding: 9px 7px;
+        font-size: 13px;
+      }
+
+      .total {
+        font-size: 15px;
+      }
+
+      .connection {
+        display: block;
+        width: fit-content;
+        margin: 8px auto 0;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<header class="header">
+
+  <h1>
+    🎂 Ayan's 11th Birthday 🎂
+  </h1>
+
+  <h2>
+    🏆 Birthday Games Scoreboard
+  </h2>
+
+  <div class="live">
+    ● LIVE SCOREBOARD
+  </div>
+
+  <div
+    id="connectionStatus"
+    class="connection"
+  >
+    Connecting...
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <div
+    id="errorMessage"
+    class="error"
+  ></div>
+
+
+  <!-- CURRENT GAME -->
+
+  <div class="card current-game">
+
+    <div class="current-game-label">
+      🎮 Currently Playing
+    </div>
+
+    <div
+      class="game-name"
+      id="currentGame"
+    >
+      Loading...
+    </div>
+
+  </div>
+
+
+  <!-- TEAM STANDINGS -->
+
+  <div class="card">
+
+    <h2>
+      🏆 Team Standings
+    </h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Players</th>
+            <th>Total Score</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="teamStandings">
+
+          <tr>
+            <td
+              colspan="4"
+              class="loading"
+            >
+              Loading live scores...
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- PLAYER SCORES -->
+
+  <div class="card">
+
+    <h2>
+      ⭐ Player Scores
+    </h2>
+
+    <div id="teamDetails">
+
+      <div class="loading">
+        Loading players...
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<div class="updated">
+
+  Last updated:
+
+  <span id="lastUpdated">
+    Waiting for Firebase...
+  </span>
+
+</div>
+
+
+<footer class="footer">
+  🎈 Have fun and play fair! 🎈
+</footer>
+
+
+<!--
+  FIREBASE LIBRARIES
+
+  IMPORTANT:
+  Keep these as SCRIPT tags.
+-->
+
+https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js</script>
+
+https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js</script>
+
+
+<script>
+
+  /*
+   * ======================================================
+   * FIREBASE CONFIGURATION
+   * ======================================================
+   */
+
+  const firebaseConfig = {
+
+    apiKey:
+      "AIzaSyDdTgm8Pm0KDPOOU_Cm2Jf9Px-76DYSS4I",
+
+    authDomain:
+      "ayan-birthday-games.firebaseapp.com",
+
+    databaseURL:
+      "https://ayan-birthday-games-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+      "ayan-birthday-games",
+
+    storageBucket:
+      "ayan-birthday-games.firebasestorage.app",
+
+    messagingSenderId:
+      "956844534148",
+
+    appId:
+      "1:956844534148:web:a684749e36326f9aa115d1",
+
+    measurementId:
+      "G-ZQPYH9ER2Z"
+
+  };
+
+
+  /*
+   * Start Firebase
+   */
+
+  firebase.initializeApp(
+    firebaseConfig
+  );
+
+
+  const database =
+    firebase.database();
+
+
+  const tournamentReference =
+    database.ref(
+      "tournament"
+    );
+
+
+  /*
+   * ======================================================
+   * CONNECTION STATUS
+   * ======================================================
+   */
+
+  database
+    .ref(".info/connected")
+    .on(
+      "value",
+      snapshot => {
+
+        const status =
+          document.getElementById(
+            "connectionStatus"
+          );
+
+
+        if (
+          snapshot.val() === true
+        ) {
+
+          status.textContent =
+            "● Connected";
+
+          status.style.background =
+            "#00b894";
+
+
+        } else {
+
+          status.textContent =
+            "● Connecting...";
+
+          status.style.background =
+            "#fdcb6e";
+
+          status.style.color =
+            "#333";
+
+        }
+
+      }
+    );
+
+
+  /*
+   * ======================================================
+   * PLAYER TOTAL
+   * ======================================================
+   */
+
+  function calculatePlayerTotal(
+    player
+  ) {
+
+    const scores =
+      normalizeScores(
+        player.scores
+      );
+
+
+    return scores.reduce(
+
+      (total, score) =>
+        total +
+        Number(score || 0),
+
+      0
+
+    );
+
+  }
+
+
+  /*
+   * ======================================================
+   * TEAM TOTAL
+   * ======================================================
+   */
+
+  function calculateTeamTotal(
+    team
+  ) {
+
+    const players =
+      normalizePlayers(
+        team.players
+      );
+
+
+    return players.reduce(
+
+      (teamTotal, player) =>
+
+        teamTotal +
+        calculatePlayerTotal(
+          player
+        ),
+
+      0
+
+    );
+
+  }
+
+
+  /*
+   * ======================================================
+   * NORMALIZE FIREBASE DATA
+   *
+   * Firebase sometimes represents numeric collections
+   * as arrays and sometimes as objects.
+   * These functions handle both cases.
+   * ======================================================
+   */
+
+
+  function normalizeCollection(
+    collection
+  ) {
+
+    if (!collection) {
+      return [];
+    }
+
+
+    if (
+      Array.isArray(collection)
+    ) {
+
+      return collection.filter(
+        item =>
+          item !== null &&
+          item !== undefined
+      );
+
+    }
+
+
+    return Object.keys(collection)
+
+      .sort(
+        (a, b) =>
+          Number(a) - Number(b)
+      )
+
+      .map(
+        key =>
+          collection[key]
+      )
+
+      .filter(
+        item =>
+          item !== null &&
+          item !== undefined
+      );
+
+  }
+
+
+  function normalizePlayers(
+    players
+  ) {
+
+    return normalizeCollection(
+      players
+    );
+
+  }
+
+
+  function normalizeScores(
+    scores
+  ) {
+
+    const normalized =
+      normalizeCollection(
+        scores
+      );
+
+
+    return Array.from(
+
+      { length: 7 },
+
+      (_, index) =>
+        Number(
+          normalized[index] || 0
+        )
+
+    );
+
+  }
+
+
+  function normalizeTeams(
+    teams
+  ) {
+
+    return normalizeCollection(
+      teams
+    );
+
+  }
+
+
+  /*
+   * ======================================================
+   * DISPLAY TOURNAMENT
+   * ======================================================
+   */
+
+  function displayTournament(
+    tournament
+  ) {
+
+    hideError();
+
+
+    /*
+     * Current game
+     */
+
+    document.getElementById(
+      "currentGame"
+    ).textContent =
+
+      tournament.currentGame ||
+      "Game 1";
+
+
+    /*
+     * Convert Firebase teams
+     * into normal JavaScript array.
+     */
+
+    const teams =
+      normalizeTeams(
+        tournament.teams
+      );
+
+
+    /*
+     * If there are no teams
+     */
+
+    if (
+      teams.length === 0
+    ) {
+
+      showEmptyTournament();
+
+      return;
+
+    }
+
+
+    /*
+     * TEAM STANDINGS
+     *
+     * Create a COPY before sorting.
+     * This prevents changing the
+     * original Firebase order.
+     */
+
+    const rankedTeams =
+      [...teams].sort(
+
+        (teamA, teamB) =>
+
+          calculateTeamTotal(
+            teamB
+          )
+
+          -
+
+          calculateTeamTotal(
+            teamA
+          )
+
+      );
+
+
+    displayTeamStandings(
+      rankedTeams
+    );
+
+
+    /*
+     * Detailed player scores
+     */
+
+    displayPlayerScores(
+      rankedTeams
+    );
+
+
+    /*
+     * Last updated
+     */
+
+    if (
+      tournament.lastUpdated
+    ) {
+
+      document.getElementById(
+        "lastUpdated"
+      ).textContent =
+        tournament.lastUpdated;
+
+    } else {
+
+      document.getElementById(
+        "lastUpdated"
+      ).textContent =
+        "Live";
+
+    }
+
+  }
+
+
+  /*
+   * ======================================================
+   * TEAM STANDINGS
+   * ======================================================
+   */
+
+  function displayTeamStandings(
+    teams
+  ) {
+
+    const standingsBody =
+      document.getElementById(
+        "teamStandings"
+      );
+
+
+    standingsBody.innerHTML =
+      "";
+
+
+    teams.forEach(
+      (team, index) => {
+
+        const players =
+          normalizePlayers(
+            team.players
+          );
+
+
+        const teamTotal =
+          calculateTeamTotal(
+            team
+          );
+
+
+        const row =
+          document.createElement(
+            "tr"
+          );
+
+
+        /*
+         * Highlight top 3
+         */
+
+        if (index === 0) {
+          row.classList.add(
+            "gold"
+          );
+        }
+
+        if (index === 1) {
+          row.classList.add(
+            "silver"
+          );
+        }
+
+        if (index === 2) {
+          row.classList.add(
+            "bronze"
+          );
+        }
+
+
+        let rank =
+          index + 1;
+
+
+        if (index === 0) {
+          rank = "🥇";
+        }
+
+        if (index === 1) {
+          rank = "🥈";
+        }
+
+        if (index === 2) {
+          rank = "🥉";
+        }
+
+
+        row.innerHTML = `
+
+          <td class="rank">
+            ${rank}
+          </td>
+
+
+          <td class="team-name">
+            ${
+              escapeHtml(
+                team.name ||
+                "Unnamed Team"
+              )
+            }
+          </td>
+
+
+          <td>
+            ${players.length}
+          </td>
+
+
+          <td class="total">
+            ${teamTotal}
+          </td>
+
+        `;
+
+
+        standingsBody.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+   * ======================================================
+   * PLAYER SCORE TABLES
+   * ======================================================
+   */
+
+  function displayPlayerScores(
+    teams
+  ) {
+
+    const details =
+      document.getElementById(
+        "teamDetails"
+      );
+
+
+    details.innerHTML =
+      "";
+
+
+    teams.forEach(
+      team => {
+
+        const players =
+          normalizePlayers(
+            team.players
+          );
+
+
+        const teamTotal =
+          calculateTeamTotal(
+            team
+          );
+
+
+        const section =
+          document.createElement(
+            "div"
+          );
+
+
+        section.className =
+          "team-section";
+
+
+        let playerRows =
+          "";
+
+
+        players.forEach(
+          player => {
+
+            const scores =
+              normalizeScores(
+                player.scores
+              );
+
+
+            const playerTotal =
+              calculatePlayerTotal(
+                player
+              );
+
+
+            let scoreCells =
+              "";
+
+
+            for (
+              let gameIndex = 0;
+              gameIndex < 7;
+              gameIndex++
+            ) {
+
+              scoreCells += `
+
+                <td>
+                  ${
+                    scores[
+                      gameIndex
+                    ]
+                  }
+                </td>
+
+              `;
+
+            }
+
+
+            playerRows += `
+
+              <tr>
+
+                <td class="player-name">
+
+                  ${
+                    escapeHtml(
+                      player.name ||
+                      "Player"
+                    )
+                  }
+
+                </td>
+
+
+                ${scoreCells}
+
+
+                <td class="total">
+                  ${playerTotal}
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        );
+
+
+        section.innerHTML = `
+
+          <div class="team-title">
+
+            ${
+              escapeHtml(
+                team.name ||
+                "Unnamed Team"
+              )
+            }
+
+            &nbsp; • &nbsp;
+
+            Team Total:
+            ${teamTotal}
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>Player</th>
+
+                  <th>G1</th>
+                  <th>G2</th>
+                  <th>G3</th>
+                  <th>G4</th>
+                  <th>G5</th>
+                  <th>G6</th>
+                  <th>G7</th>
+
+                  <th>Total</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                ${playerRows}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        `;
+
+
+        details.appendChild(
+          section
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+   * ======================================================
+   * EMPTY DATABASE
+   * ======================================================
+   */
+
+  function showEmptyTournament() {
+
+    document.getElementById(
+      "teamStandings"
+    ).innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="4"
+          class="empty-message"
+        >
+
+          No teams have been added yet.
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    document.getElementById(
+      "teamDetails"
+    ).innerHTML = `
+
+      <div class="empty-message">
+
+        Waiting for the birthday games
+        to begin! 🎂
+
+      </div>
+
+    `;
+
+  }
+
+
+  /*
+   * ======================================================
+   * ERROR DISPLAY
+   * ======================================================
+   */
+
+  function showError(
+    message
+  ) {
+
+    const error =
+      document.getElementById(
+        "errorMessage"
+      );
+
+
+    error.textContent =
+      message;
+
+
+    error.style.display =
+      "block";
+
+  }
+
+
+  function hideError() {
+
+    document.getElementById(
+      "errorMessage"
+    ).style.display =
+      "none";
+
+  }
+
+
+  /*
+   * ======================================================
+   * SAFE DISPLAY OF NAMES
+   * ======================================================
+   */
+
+  function escapeHtml(
+    text
+  ) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+
+    div.textContent =
+      String(text);
+
+
+    return div.innerHTML;
+
+  }
+
+
+  /*
+   * ======================================================
+   * FIREBASE REAL-TIME LISTENER
+   *
+   * This is the important part.
+   *
+   * .on("value") means Firebase
+   * automatically calls this function
+   * whenever /tournament changes.
+   * ======================================================
+   */
+
+  tournamentReference.on(
+
+    "value",
+
+    snapshot => {
+
+      if (
+        snapshot.exists()
+      ) {
+
+        const tournament =
+          snapshot.val();
+
+
+        displayTournament(
+          tournament
+        );
+
+      } else {
+
+        document.getElementById(
+          "currentGame"
+        ).textContent =
+          "Not started";
+
+
+        document.getElementById(
+          "lastUpdated"
+        ).textContent =
+          "No scores yet";
+
+
+        showEmptyTournament();
+
+      }
+
+    },
+
+
+    error => {
+
+      console.error(
+        "Firebase read error:",
+        error
+      );
+
+
+      showError(
+
+        "Could not load the live scores. " +
+        error.message
+
+      );
+
+    }
+
+  );
+
+</script>
+
+</body>
+</html>
