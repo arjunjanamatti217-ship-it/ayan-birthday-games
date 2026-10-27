@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Ayan's 11th Birthday Games</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,10 +27,14 @@
       color: #222;
     }
 
+    /*
+      HEADER
+    */
+
     .header {
       text-align: center;
       color: white;
-      padding: 32px 15px 22px;
+      padding: 30px 15px 22px;
     }
 
     .header h1 {
@@ -46,11 +57,21 @@
       font-size: 14px;
     }
 
+
+    /*
+      MAIN CONTAINER
+    */
+
     .container {
       max-width: 1150px;
       margin: auto;
       padding: 15px;
     }
+
+
+    /*
+      CARDS
+    */
 
     .card {
       background: white;
@@ -65,16 +86,32 @@
       color: #2d3436;
     }
 
+
+    /*
+      CURRENT GAME
+    */
+
     .current-game {
       text-align: center;
     }
 
-    .current-game .game-name {
-      font-size: 28px;
+    .current-game-label {
+      color: #636e72;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .game-name {
+      font-size: 30px;
       font-weight: bold;
       color: #6c5ce7;
-      margin-top: 6px;
+      margin-top: 7px;
     }
+
+
+    /*
+      TABLE
+    */
 
     .table-wrapper {
       overflow-x: auto;
@@ -103,6 +140,11 @@
       background: #f7f7ff;
     }
 
+
+    /*
+      TEAM STANDINGS
+    */
+
     .rank {
       font-size: 22px;
       font-weight: bold;
@@ -111,10 +153,6 @@
     .team-name {
       font-weight: bold;
       text-align: left;
-    }
-
-    .score {
-      font-weight: bold;
     }
 
     .total {
@@ -135,8 +173,13 @@
       background: #fff0e1;
     }
 
+
+    /*
+      PLAYER DETAILS
+    */
+
     .team-section {
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
 
     .team-title {
@@ -146,424 +189,7 @@
       border-radius: 10px 10px 0 0;
       font-weight: bold;
       font-size: 18px;
-    }
 
-    .updated {
-      text-align: center;
-      color: #666;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .empty-message {
-      text-align: center;
-      padding: 30px;
-      color: #777;
-    }
-
-    .footer {
-      text-align: center;
-      color: white;
-      padding: 25px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 700px) {
-      .header h1 {
-        font-size: 28px;
-      }
-
-      .header h2 {
-        font-size: 19px;
-      }
-
-      .card {
-        padding: 14px;
-      }
-
-      th,
-      td {
-        padding: 9px 7px;
-        font-size: 13px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header class="header">
-    <h1>🎂 Ayan's 11th Birthday 🎂</h1>
-    <h2>🏆 Birthday Games Scoreboard</h2>
-
-    <div class="live">
-      ● LIVE SCOREBOARD
-    </div>
-  </header>
-
-  <main class="container">
-
-    <div class="card current-game">
-      <div>Currently Playing</div>
-      <div class="game-name" id="currentGame">
-        Game 1
-      </div>
-    </div>
-
-
-    <div class="card">
-
-      <h2>🏆 Team Standings</h2>
-
-      <div class="table-wrapper">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Team</th>
-              <th>Players</th>
-              <th>Total Score</th>
-            </tr>
-          </thead>
-
-          <tbody id="teamStandings">
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>⭐ Player Scores</h2>
-
-      <div id="teamDetails">
-      </div>
-
-    </div>
-
-
-    <div class="updated">
-      Last updated:
-      <span id="lastUpdated">Not yet updated</span>
-    </div>
-
-  </main>
-
-  <footer class="footer">
-    🎈 Have fun and play fair! 🎈
-  </footer>
-
-
-  <script>
-
-    const GAMES = [
-      "Game 1",
-      "Game 2",
-      "Game 3",
-      "Game 4",
-      "Game 5",
-      "Game 6",
-      "Game 7"
-    ];
-
-
-    function loadTournament() {
-
-      /*
-       * For our first test we use localStorage.
-       *
-       * Later we will replace this section with Firebase.
-       */
-
-      const storedData =
-        localStorage.getItem("ayanBirthdayTournament");
-
-      if (!storedData) {
-
-        document.getElementById("teamStandings").innerHTML = `
-          <tr>
-            <td colspan="4">
-              No scores available yet.
-            </td>
-          </tr>
-        `;
-
-        document.getElementById("teamDetails").innerHTML = `
-          <div class="empty-message">
-            Waiting for teams and scores to be entered.
-          </div>
-        `;
-
-        return;
-      }
-
-
-      const tournament = JSON.parse(storedData);
-
-      displayTournament(tournament);
-    }
-
-
-    function calculatePlayerTotal(player) {
-
-      return player.scores.reduce(
-        (total, score) => total + Number(score || 0),
-        0
-      );
-
-    }
-
-
-    function calculateTeamTotal(team) {
-
-      return team.players.reduce(
-        (teamTotal, player) =>
-          teamTotal + calculatePlayerTotal(player),
-        0
-      );
-
-    }
-
-
-    function displayTournament(tournament) {
-
-      // Current game
-
-      document.getElementById("currentGame").textContent =
-        tournament.currentGame || "Game 1";
-
-
-      /*
-       * TEAM STANDINGS
-       */
-
-      const teams =
-        [...tournament.teams]
-          .sort(
-            (a, b) =>
-              calculateTeamTotal(b) -
-              calculateTeamTotal(a)
-          );
-
-
-      const standingsBody =
-        document.getElementById("teamStandings");
-
-      standingsBody.innerHTML = "";
-
-
-      teams.forEach((team, index) => {
-
-        const total = calculateTeamTotal(team);
-
-        const row =
-          document.createElement("tr");
-
-
-        if (index === 0) {
-          row.classList.add("gold");
-        }
-
-        if (index === 1) {
-          row.classList.add("silver");
-        }
-
-        if (index === 2) {
-          row.classList.add("bronze");
-        }
-
-
-        let rankDisplay = index + 1;
-
-        if (index === 0) rankDisplay = "🥇";
-        if (index === 1) rankDisplay = "🥈";
-        if (index === 2) rankDisplay = "🥉";
-
-
-        row.innerHTML = `
-
-          <td class="rank">
-            ${rankDisplay}
-          </td>
-
-          <td class="team-name">
-            ${escapeHtml(team.name)}
-          </td>
-
-          <td>
-            ${team.players.length}
-          </td>
-
-          <td class="total">
-            ${total}
-          </td>
-
-        `;
-
-
-        standingsBody.appendChild(row);
-
-      });
-
-
-      /*
-       * PLAYER DETAILS
-       */
-
-      const details =
-        document.getElementById("teamDetails");
-
-      details.innerHTML = "";
-
-
-      teams.forEach(team => {
-
-        const section =
-          document.createElement("div");
-
-        section.className = "team-section";
-
-
-        let playerRows = "";
-
-
-        team.players.forEach(player => {
-
-          const total =
-            calculatePlayerTotal(player);
-
-
-          let scoreCells = "";
-
-
-          for (let i = 0; i < 7; i++) {
-
-            const score =
-              Number(player.scores[i] || 0);
-
-            scoreCells += `
-              <td>${score}</td>
-            `;
-
-          }
-
-
-          playerRows += `
-
-            <tr>
-
-              <td class="team-name">
-                ${escapeHtml(player.name)}
-              </td>
-
-              ${scoreCells}
-
-              <td class="total">
-                ${total}
-              </td>
-
-            </tr>
-
-          `;
-
-        });
-
-
-        section.innerHTML = `
-
-          <div class="team-title">
-
-            ${escapeHtml(team.name)}
-
-            &nbsp; • &nbsp;
-
-            Team Total:
-            ${calculateTeamTotal(team)}
-
-          </div>
-
-          <div class="table-wrapper">
-
-            <table>
-
-              <thead>
-
-                <tr>
-
-                  <th>Player</th>
-
-                  <th>G1</th>
-                  <th>G2</th>
-                  <th>G3</th>
-                  <th>G4</th>
-                  <th>G5</th>
-                  <th>G6</th>
-                  <th>G7</th>
-
-                  <th>Total</th>
-
-                </tr>
-
-              </thead>
-
-              <tbody>
-
-                ${playerRows}
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        `;
-
-
-        details.appendChild(section);
-
-      });
-
-
-      document.getElementById("lastUpdated").textContent =
-        tournament.lastUpdated || "Unknown";
-
-    }
-
-
-    function escapeHtml(text) {
-
-      const div = document.createElement("div");
-
-      div.textContent = text;
-
-      return div.innerHTML;
-
-    }
-
-
-    /*
-     * Load scoreboard.
-     */
-
-    loadTournament();
-
-
-    /*
-     * Check every 2 seconds.
-     *
-     * This is useful while testing locally
-     * in another browser tab.
-     */
-
-    setInterval(loadTournament, 2000);
-
-  </script>
-
-</body>
-</html>
+      display: flex;
+      justify-content: space-between;
+      align-items:
