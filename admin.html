@@ -11,7 +11,6 @@
   <title>Ayan Birthday Games - Admin</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -39,7 +38,7 @@
     }
 
     .container {
-      max-width: 1050px;
+      max-width: 1100px;
       margin: auto;
       padding: 20px;
     }
@@ -49,8 +48,7 @@
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow:
-        0 5px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
@@ -65,37 +63,36 @@
 
     input,
     select {
-
       width: 100%;
       padding: 11px;
-
-      border:
-        1px solid #ccc;
-
+      border: 1px solid #ccc;
       border-radius: 8px;
-
       font-size: 16px;
+    }
 
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #6c5ce7;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.12);
     }
 
     button {
-
       border: 0;
-
       border-radius: 9px;
-
       padding: 11px 18px;
-
       font-size: 15px;
-
       font-weight: bold;
-
       cursor: pointer;
-
     }
 
     button:hover {
-      opacity: .9;
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     .primary {
@@ -119,26 +116,27 @@
     }
 
     .team-card {
-
-      border:
-        2px solid #eee;
-
+      border: 2px solid #eee;
       border-radius: 14px;
-
       padding: 18px;
-
       margin-top: 20px;
+    }
 
+    .team-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .team-header h3 {
+      margin: 0;
+      min-width: 90px;
     }
 
     .team-name-input {
-
       font-size: 19px;
-
       font-weight: bold;
-
-      margin-bottom: 15px;
-
     }
 
     .table-wrapper {
@@ -146,104 +144,132 @@
     }
 
     table {
-
       width: 100%;
-
       border-collapse: collapse;
-
     }
 
     th {
-
       background: #6c5ce7;
-
       color: white;
-
       padding: 10px;
-
+      white-space: nowrap;
     }
 
     td {
-
       padding: 6px;
-
-      border-bottom:
-        1px solid #eee;
-
+      border-bottom: 1px solid #eee;
     }
 
     td input {
-
       min-width: 65px;
-
       text-align: center;
-
     }
 
     .player-name {
-
       min-width: 150px;
-
       text-align: left;
-
     }
 
     .buttons {
-
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 10px;
-
       margin-top: 20px;
-
     }
 
     .status {
-
       display: none;
-
-      background: #d4edda;
-
-      color: #155724;
-
       padding: 12px;
-
       border-radius: 8px;
-
       margin-top: 15px;
-
       font-weight: bold;
+    }
 
+    .status.success-message {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #b7dfc2;
+    }
+
+    .status.error-message {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #efb3b8;
+    }
+
+    .status.info-message {
+      display: block;
+      background: #dbeafe;
+      color: #1e3a8a;
+      border: 1px solid #bfdbfe;
     }
 
     .notice {
-
-      background: #fff3cd;
-
-      color: #856404;
-
+      background: #dbeafe;
+      color: #1e3a8a;
       padding: 14px;
-
       border-radius: 10px;
-
       margin-bottom: 20px;
+    }
 
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .connection {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 7px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .connected {
+      background: #00b894;
+      color: white;
+    }
+
+    .disconnected {
+      background: #d63031;
+      color: white;
+    }
+
+    .connecting {
+      background: #fdcb6e;
+      color: #333;
     }
 
     .total {
-
       font-weight: bold;
-
       text-align: center;
-
       min-width: 65px;
-
+      color: #6c5ce7;
     }
 
-    @media(max-width:700px) {
+    .team-total-row {
+      margin-top: 14px;
+      padding: 10px;
+      background: #f5f3ff;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: right;
+      color: #6c5ce7;
+    }
 
+    .remove-team-container {
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    @media (max-width: 700px) {
       .container {
         padding: 10px;
       }
@@ -257,44 +283,52 @@
         font-size: 13px;
       }
 
+      .team-header {
+        display: block;
+      }
+
+      .team-header h3 {
+        margin-bottom: 8px;
+      }
+
+      .buttons button {
+        flex: 1 1 45%;
+      }
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-
   <h1>🎮 Birthday Games Admin</h1>
 
   <div>
     Ayan's 11th Birthday
   </div>
 
+  <div
+    id="connectionStatus"
+    class="connection connecting"
+  >
+    Connecting to Firebase...
+  </div>
 </header>
-
 
 <main class="container">
 
-
   <div class="notice">
-
-    🧪 <strong>Testing version:</strong>
-
-    Scores are currently stored only
-    in this browser.
-
-    Firebase will be added after
-    we confirm the scoring system
-    works correctly.
-
+    ☁️ <strong>Firebase version:</strong>
+    Scores entered here will be saved to the online Firebase database.
+    Once the public scoreboard is Firebase-enabled, other phones will see
+    these scores.
   </div>
 
-
+  <div class="warning">
+    ⚠️ This page currently does not have an admin login. Do not share the
+    <strong>admin.html</strong> link with guests. We will restrict write
+    access after confirming that the live database connection works.
+  </div>
 
   <div class="card">
 
@@ -305,32 +339,27 @@
     </label>
 
     <select id="currentGame">
-
-      <option>Game 1</option>
-      <option>Game 2</option>
-      <option>Game 3</option>
-      <option>Game 4</option>
-      <option>Game 5</option>
-      <option>Game 6</option>
-      <option>Game 7</option>
-
+      <option value="Game 1">Game 1</option>
+      <option value="Game 2">Game 2</option>
+      <option value="Game 3">Game 3</option>
+      <option value="Game 4">Game 4</option>
+      <option value="Game 5">Game 5</option>
+      <option value="Game 6">Game 6</option>
+      <option value="Game 7">Game 7</option>
     </select>
 
   </div>
 
-
-
   <div class="card">
 
-    <h2>👥 Teams & Player Scores</h2>
+    <h2>👥 Teams and Player Scores</h2>
 
-    <div id="teamsContainer">
-    </div>
-
+    <div id="teamsContainer"></div>
 
     <div class="buttons">
 
       <button
+        type="button"
         class="primary"
         onclick="addTeam()"
       >
@@ -338,13 +367,16 @@
       </button>
 
       <button
+        type="button"
+        id="saveButton"
         class="success"
         onclick="saveTournament()"
       >
-        💾 Save Scores
+        💾 Save Scores to Firebase
       </button>
 
       <button
+        type="button"
         class="secondary"
         onclick="openScoreboard()"
       >
@@ -352,6 +384,7 @@
       </button>
 
       <button
+        type="button"
         class="danger"
         onclick="resetTournament()"
       >
@@ -360,387 +393,336 @@
 
     </div>
 
-
     <div
       id="saveStatus"
       class="status"
-    >
-      ✅ Scores saved successfully!
-    </div>
+    ></div>
 
   </div>
 
-
 </main>
 
+<!-- Firebase JavaScript libraries -->
+https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.jsscript>
+https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.jsscript>
 
 <script>
+  /*
+   * ------------------------------------------------------
+   * FIREBASE CONFIGURATION
+   * ------------------------------------------------------
+   */
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDdTgm8Pm0KDPOOU_Cm2Jf9Px-76DYSS4I",
+    authDomain: "ayan-birthday-games.firebaseapp.com",
+    databaseURL: "https://ayan-birthday-games-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "ayan-birthday-games",
+    storageBucket: "ayan-birthday-games.firebasestorage.app",
+    messagingSenderId: "956844534148",
+    appId: "1:956844534148:web:a684749e36326f9aa115d1",
+    measurementId: "G-ZQPYH9ER2Z"
+  };
 
-  const NUMBER_OF_PLAYERS = 7;
+  firebase.initializeApp(firebaseConfig);
 
-  const NUMBER_OF_GAMES = 7;
+  const database = firebase.database();
 
-
-  let teams = [];
+  /*
+   * All tournament information will be stored under:
+   *
+   * /tournament
+   */
+  const tournamentReference =
+    database.ref("tournament");
 
 
   /*
-   * Create a blank team.
+   * ------------------------------------------------------
+   * APPLICATION SETTINGS
+   * ------------------------------------------------------
+   */
+
+  const NUMBER_OF_PLAYERS = 7;
+  const NUMBER_OF_GAMES = 7;
+
+  let teams = [];
+  let firebaseConnected = false;
+
+
+  /*
+   * ------------------------------------------------------
+   * FIREBASE CONNECTION STATUS
+   * ------------------------------------------------------
+   */
+
+  database.ref(".info/connected").on("value", snapshot => {
+    firebaseConnected = snapshot.val() === true;
+
+    const connectionElement =
+      document.getElementById("connectionStatus");
+
+    if (firebaseConnected) {
+      connectionElement.textContent =
+        "● Connected to Firebase";
+
+      connectionElement.className =
+        "connection connected";
+    } else {
+      connectionElement.textContent =
+        "● Not connected to Firebase";
+
+      connectionElement.className =
+        "connection disconnected";
+    }
+  });
+
+
+  /*
+   * ------------------------------------------------------
+   * TEAM AND PLAYER CREATION
+   * ------------------------------------------------------
    */
 
   function createTeam() {
+    const teamNumber = teams.length + 1;
 
     return {
-
-      name:
-        "Team " + (teams.length + 1),
+      name: "Team " + teamNumber,
 
       players: Array.from(
         { length: NUMBER_OF_PLAYERS },
         (_, playerIndex) => ({
-
-          name:
-            "Player " + (playerIndex + 1),
+          name: "Player " + (playerIndex + 1),
 
           scores:
             Array(NUMBER_OF_GAMES).fill(0)
-
         })
       )
-
     };
-
   }
 
-
-
-  /*
-   * Add new team.
-   */
 
   function addTeam() {
-
-    teams.push(
-      createTeam()
-    );
-
+    teams.push(createTeam());
     renderTeams();
-
   }
 
 
-
-  /*
-   * Remove a team.
-   */
-
   function removeTeam(teamIndex) {
-
-    const confirmed =
-      confirm(
-        "Remove this team?"
-      );
-
+    const confirmed = confirm(
+      "Remove this team? Remember to click Save Scores afterward."
+    );
 
     if (!confirmed) {
       return;
     }
 
-
-    teams.splice(
-      teamIndex,
-      1
-    );
-
-
+    teams.splice(teamIndex, 1);
     renderTeams();
-
   }
 
 
-
   /*
-   * Calculate player's total.
+   * ------------------------------------------------------
+   * SCORE CALCULATIONS
+   * ------------------------------------------------------
    */
 
   function calculatePlayerTotal(player) {
-
     return player.scores.reduce(
       (total, score) =>
         total + Number(score || 0),
       0
     );
-
   }
 
 
+  function calculateTeamTotal(team) {
+    return team.players.reduce(
+      (total, player) =>
+        total + calculatePlayerTotal(player),
+      0
+    );
+  }
+
 
   /*
-   * Draw all teams.
+   * ------------------------------------------------------
+   * DISPLAY TEAMS
+   * ------------------------------------------------------
    */
 
   function renderTeams() {
-
     const container =
-      document.getElementById(
-        "teamsContainer"
-      );
-
+      document.getElementById("teamsContainer");
 
     container.innerHTML = "";
 
+    teams.forEach((team, teamIndex) => {
+      const teamDiv =
+        document.createElement("div");
 
-    teams.forEach(
-      (team, teamIndex) => {
+      teamDiv.className = "team-card";
 
+      let playerRows = "";
 
-        const teamDiv =
-          document.createElement("div");
+      team.players.forEach(
+        (player, playerIndex) => {
+          let scoreInputs = "";
 
+          for (
+            let gameIndex = 0;
+            gameIndex < NUMBER_OF_GAMES;
+            gameIndex++
+          ) {
+            const score =
+              Number(player.scores[gameIndex] || 0);
 
-        teamDiv.className =
-          "team-card";
-
-
-        let playerRows = "";
-
-
-        team.players.forEach(
-          (player, playerIndex) => {
-
-
-            let scoreInputs = "";
-
-
-            for (
-              let gameIndex = 0;
-              gameIndex < NUMBER_OF_GAMES;
-              gameIndex++
-            ) {
-
-
-              scoreInputs += `
-
-                <td>
-
-                  <input
-                    type="number"
-                    min="0"
-
-                    value="${
-                      player.scores[
-                        gameIndex
-                      ]
-                    }"
-
-                    onchange="
-                      updateScore(
-                        ${teamIndex},
-                        ${playerIndex},
-                        ${gameIndex},
-                        this.value
-                      )
-                    "
-                  >
-
-                </td>
-
-              `;
-
-            }
-
-
-            const playerTotal =
-              calculatePlayerTotal(
-                player
-              );
-
-
-            playerRows += `
-
-              <tr>
-
-                <td>
-
-                  <input
-                    class="player-name"
-
-                    value="${
-                      escapeAttribute(
-                        player.name
-                      )
-                    }"
-
-                    onchange="
-                      updatePlayerName(
-                        ${teamIndex},
-                        ${playerIndex},
-                        this.value
-                      )
-                    "
-                  >
-
-                </td>
-
-                ${scoreInputs}
-
-                <td
-                  class="total"
-                  id="
-                    total-${teamIndex}-${playerIndex}
+            scoreInputs += `
+              <td>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                  aria-label="Game ${gameIndex + 1} score for ${escapeAttribute(player.name)}"
+                  value="${score}"
+                  onchange="
+                    updateScore(
+                      ${teamIndex},
+                      ${playerIndex},
+                      ${gameIndex},
+                      this.value
+                    )
                   "
                 >
-
-                  ${playerTotal}
-
-                </td>
-
-              </tr>
-
+              </td>
             `;
-
           }
-        );
 
+          const playerTotal =
+            calculatePlayerTotal(player);
 
-        teamDiv.innerHTML = `
+          playerRows += `
+            <tr>
+              <td>
+                <input
+                  class="player-name"
+                  aria-label="Player name"
+                  value="${escapeAttribute(player.name)}"
+                  onchange="
+                    updatePlayerName(
+                      ${teamIndex},
+                      ${playerIndex},
+                      this.value
+                    )
+                  "
+                >
+              </td>
 
-          <label>
-            Team Name
-          </label>
+              ${scoreInputs}
 
+              <td
+                class="total"
+                id="total-${teamIndex}-${playerIndex}"
+              >
+                ${playerTotal}
+              </td>
+            </tr>
+          `;
+        }
+      );
+
+      const teamTotal =
+        calculateTeamTotal(team);
+
+      teamDiv.innerHTML = `
+        <div class="team-header">
+          <h3>Team ${teamIndex + 1}</h3>
 
           <input
-
             class="team-name-input"
-
-            value="${
-              escapeAttribute(
-                team.name
-              )
-            }"
-
+            aria-label="Team name"
+            value="${escapeAttribute(team.name)}"
             onchange="
               updateTeamName(
                 ${teamIndex},
                 this.value
               )
             "
-
           >
+        </div>
 
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>G1</th>
+                <th>G2</th>
+                <th>G3</th>
+                <th>G4</th>
+                <th>G5</th>
+                <th>G6</th>
+                <th>G7</th>
+                <th>Total</th>
+              </tr>
+            </thead>
 
-          <div class="table-wrapper">
+            <tbody>
+              ${playerRows}
+            </tbody>
+          </table>
+        </div>
 
-            <table>
+        <div
+          class="team-total-row"
+          id="team-total-${teamIndex}"
+        >
+          Team Total: ${teamTotal}
+        </div>
 
-              <thead>
-
-                <tr>
-
-                  <th>Player</th>
-
-                  <th>G1</th>
-                  <th>G2</th>
-                  <th>G3</th>
-                  <th>G4</th>
-                  <th>G5</th>
-                  <th>G6</th>
-                  <th>G7</th>
-
-                  <th>Total</th>
-
-                </tr>
-
-              </thead>
-
-
-              <tbody>
-
-                ${playerRows}
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-
-          <div
-            style="
-              margin-top:15px;
-              text-align:right;
-            "
+        <div class="remove-team-container">
+          <button
+            type="button"
+            class="danger"
+            onclick="removeTeam(${teamIndex})"
           >
+            Remove Team
+          </button>
+        </div>
+      `;
 
-            <button
-              class="danger"
-
-              onclick="
-                removeTeam(
-                  ${teamIndex}
-                )
-              "
-            >
-
-              Remove Team
-
-            </button>
-
-          </div>
-
-        `;
-
-
-        container.appendChild(
-          teamDiv
-        );
-
-      }
-    );
-
+      container.appendChild(teamDiv);
+    });
   }
 
 
-
   /*
-   * Update team name.
+   * ------------------------------------------------------
+   * UPDATE LOCAL PAGE VALUES
+   * ------------------------------------------------------
    */
 
-  function updateTeamName(
-    teamIndex,
-    value
-  ) {
-
+  function updateTeamName(teamIndex, value) {
     teams[teamIndex].name =
-      value;
-
+      value.trim() || "Team " + (teamIndex + 1);
   }
 
-
-
-  /*
-   * Update player name.
-   */
 
   function updatePlayerName(
     teamIndex,
     playerIndex,
     value
   ) {
-
     teams[teamIndex]
       .players[playerIndex]
-      .name = value;
-
+      .name =
+        value.trim() ||
+        "Player " + (playerIndex + 1);
   }
 
-
-
-  /*
-   * Update score.
-   */
 
   function updateScore(
     teamIndex,
@@ -748,293 +730,373 @@
     gameIndex,
     value
   ) {
+    let score = Number(value);
 
-
-    const score =
-      Number(value);
-
+    if (
+      !Number.isFinite(score) ||
+      score < 0
+    ) {
+      score = 0;
+    }
 
     teams[teamIndex]
       .players[playerIndex]
-      .scores[gameIndex] =
-        Number.isFinite(score)
-          ? score
-          : 0;
-
+      .scores[gameIndex] = score;
 
     const player =
-      teams[teamIndex]
-        .players[playerIndex];
+      teams[teamIndex].players[playerIndex];
 
-
-    const total =
-      calculatePlayerTotal(
-        player
-      );
-
+    const playerTotal =
+      calculatePlayerTotal(player);
 
     document.getElementById(
       `total-${teamIndex}-${playerIndex}`
-    ).textContent =
-      total;
+    ).textContent = playerTotal;
 
+    const teamTotal =
+      calculateTeamTotal(teams[teamIndex]);
+
+    document.getElementById(
+      `team-total-${teamIndex}`
+    ).textContent =
+      "Team Total: " + teamTotal;
   }
 
 
-
   /*
-   * Save tournament.
+   * ------------------------------------------------------
+   * SAVE TO FIREBASE
+   * ------------------------------------------------------
    */
 
-  function saveTournament() {
+  async function saveTournament() {
+    const saveButton =
+      document.getElementById("saveButton");
 
+    saveButton.disabled = true;
+    saveButton.textContent =
+      "Saving to Firebase...";
+
+    showStatus(
+      "Saving scores to Firebase...",
+      "info"
+    );
 
     const tournament = {
-
       currentGame:
+        document.getElementById("currentGame").value,
 
-        document
-          .getElementById(
-            "currentGame"
-          )
-          .value,
-
-      teams:
-        teams,
+      teams: teams,
 
       lastUpdated:
+        new Date().toLocaleString(),
 
-        new Date()
-          .toLocaleString()
-
+      lastUpdatedTimestamp:
+        firebase.database.ServerValue.TIMESTAMP
     };
 
+    try {
+      await tournamentReference.set(tournament);
 
-    localStorage.setItem(
-
-      "ayanBirthdayTournament",
-
-      JSON.stringify(
-        tournament
-      )
-
-    );
-
-
-    const status =
-      document.getElementById(
-        "saveStatus"
+      showStatus(
+        "✅ Scores saved successfully to Firebase!",
+        "success"
       );
 
+      console.log(
+        "Tournament saved to Firebase:",
+        tournament
+      );
+    } catch (error) {
+      console.error(
+        "Firebase save failed:",
+        error
+      );
 
-    status.style.display =
-      "block";
-
-
-    setTimeout(
-      () => {
-
-        status.style.display =
-          "none";
-
-      },
-
-      2500
-
-    );
-
+      showStatus(
+        "❌ Could not save to Firebase: " +
+          error.message,
+        "error"
+      );
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent =
+        "💾 Save Scores to Firebase";
+    }
   }
 
 
-
   /*
-   * Load previously saved scores.
+   * ------------------------------------------------------
+   * LOAD EXISTING FIREBASE DATA
+   * ------------------------------------------------------
    */
 
-  function loadTournament() {
+  async function loadTournament() {
+    showStatus(
+      "Loading existing scores from Firebase...",
+      "info"
+    );
 
+    try {
+      const snapshot =
+        await tournamentReference.once("value");
 
-    const storedData =
-      localStorage.getItem(
-        "ayanBirthdayTournament"
-      );
+      if (snapshot.exists()) {
+        const tournament = snapshot.val();
 
-
-    if (
-      storedData
-    ) {
-
-
-      try {
-
-
-        const tournament =
-          JSON.parse(
-            storedData
-          );
-
-
+        /*
+         * Firebase can return arrays as arrays,
+         * but Object.values provides a fallback
+         * if numeric keys are returned as an object.
+         */
         teams =
-          tournament.teams || [];
-
+          normalizeTeams(tournament.teams);
 
         document.getElementById(
           "currentGame"
         ).value =
+          tournament.currentGame || "Game 1";
 
-          tournament.currentGame
-          || "Game 1";
-
-
-      }
-      catch (error) {
-
-
-        console.error(
-          "Could not load saved data",
-          error
+        showStatus(
+          "✅ Existing scores loaded from Firebase.",
+          "success"
         );
+      } else {
+        /*
+         * Database is empty.
+         * Begin with two blank teams.
+         */
+        teams = [];
+        teams.push(createTeam());
+        teams.push(createTeam());
 
-
+        showStatus(
+          "Firebase is connected. No existing tournament was found, so two blank teams were created.",
+          "info"
+        );
       }
 
-    }
-
-
-    /*
-     * Start with two teams
-     * when no saved data exists.
-     */
-
-    if (
-      teams.length === 0
-    ) {
-
-      teams.push(
-        createTeam()
+      renderTeams();
+    } catch (error) {
+      console.error(
+        "Firebase load failed:",
+        error
       );
 
-      teams.push(
-        createTeam()
+      teams = [];
+
+      teams.push(createTeam());
+      teams.push(createTeam());
+
+      renderTeams();
+
+      showStatus(
+        "❌ Could not load Firebase data: " +
+          error.message,
+        "error"
       );
-
     }
-
-
-    renderTeams();
-
   }
 
 
-
   /*
-   * Reset all data.
+   * ------------------------------------------------------
+   * NORMALIZE FIREBASE DATA
+   * ------------------------------------------------------
    */
 
-  function resetTournament() {
+  function normalizeTeams(firebaseTeams) {
+    if (!firebaseTeams) {
+      return [];
+    }
+
+    const teamsArray =
+      Array.isArray(firebaseTeams)
+        ? firebaseTeams
+        : Object.values(firebaseTeams);
+
+    return teamsArray
+      .filter(Boolean)
+      .map((team, teamIndex) => {
+        const firebasePlayers =
+          team.players || [];
+
+        let players =
+          Array.isArray(firebasePlayers)
+            ? firebasePlayers
+            : Object.values(firebasePlayers);
+
+        players =
+          players
+            .filter(Boolean)
+            .map((player, playerIndex) => {
+              const firebaseScores =
+                player.scores || [];
+
+              let scores =
+                Array.isArray(firebaseScores)
+                  ? firebaseScores
+                  : Object.values(firebaseScores);
+
+              scores =
+                Array.from(
+                  { length: NUMBER_OF_GAMES },
+                  (_, gameIndex) =>
+                    Number(scores[gameIndex] || 0)
+                );
+
+              return {
+                name:
+                  player.name ||
+                  "Player " + (playerIndex + 1),
+
+                scores: scores
+              };
+            });
+
+        while (
+          players.length < NUMBER_OF_PLAYERS
+        ) {
+          players.push({
+            name:
+              "Player " + (players.length + 1),
+
+            scores:
+              Array(NUMBER_OF_GAMES).fill(0)
+          });
+        }
+
+        players =
+          players.slice(0, NUMBER_OF_PLAYERS);
+
+        return {
+          name:
+            team.name ||
+            "Team " + (teamIndex + 1),
+
+          players: players
+        };
+      });
+  }
 
 
-    const confirmed =
-      confirm(
+  /*
+   * ------------------------------------------------------
+   * RESET FIREBASE DATA
+   * ------------------------------------------------------
+   */
 
-        "This will delete all teams and scores. Continue?"
-
-      );
-
+  async function resetTournament() {
+    const confirmed = confirm(
+      "This will permanently delete all teams and scores from Firebase. Continue?"
+    );
 
     if (!confirmed) {
       return;
     }
 
+    try {
+      await tournamentReference.remove();
 
-    localStorage.removeItem(
-      "ayanBirthdayTournament"
-    );
+      teams = [];
 
+      teams.push(createTeam());
+      teams.push(createTeam());
 
-    teams = [];
+      document.getElementById(
+        "currentGame"
+      ).value = "Game 1";
 
+      renderTeams();
 
-    teams.push(
-      createTeam()
-    );
+      showStatus(
+        "✅ Firebase tournament data was deleted. Two new blank teams are ready. Click Save Scores when you want to store them.",
+        "success"
+      );
+    } catch (error) {
+      console.error(
+        "Firebase reset failed:",
+        error
+      );
 
-    teams.push(
-      createTeam()
-    );
-
-
-    document.getElementById(
-      "currentGame"
-    ).value =
-      "Game 1";
-
-
-    renderTeams();
-
+      showStatus(
+        "❌ Could not reset Firebase data: " +
+          error.message,
+        "error"
+      );
+    }
   }
 
 
-
   /*
-   * Open public scoreboard.
+   * ------------------------------------------------------
+   * OPEN PUBLIC SCOREBOARD
+   * ------------------------------------------------------
    */
 
   function openScoreboard() {
-
-    saveTournament();
-
+    /*
+     * This only opens index.html.
+     *
+     * Save first because the public page should
+     * display the last successfully saved data.
+     */
     window.open(
       "index.html",
       "_blank"
     );
-
   }
 
 
+  /*
+   * ------------------------------------------------------
+   * STATUS MESSAGE
+   * ------------------------------------------------------
+   */
+
+  function showStatus(message, type) {
+    const status =
+      document.getElementById("saveStatus");
+
+    status.textContent = message;
+
+    if (type === "success") {
+      status.className =
+        "status success-message";
+    } else if (type === "error") {
+      status.className =
+        "status error-message";
+    } else {
+      status.className =
+        "status info-message";
+    }
+  }
+
 
   /*
-   * Safely display user-entered
-   * text inside HTML attributes.
+   * ------------------------------------------------------
+   * SAFE HTML ATTRIBUTE OUTPUT
+   * ------------------------------------------------------
    */
 
   function escapeAttribute(value) {
-
     return String(value)
-
-      .replaceAll(
-        "&",
-        "&amp;"
-      )
-
-      .replaceAll(
-        "\"",
-        "&quot;"
-      )
-
-      .replaceAll(
-        "<",
-        "&lt;"
-      )
-
-      .replaceAll(
-        ">",
-        "&gt;"
-      );
-
+      .replaceAll("&", "&amp;")
+      .replaceAll("\"", "&quot;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
   }
 
 
-
   /*
-   * Start the application.
+   * ------------------------------------------------------
+   * START APPLICATION
+   * ------------------------------------------------------
    */
 
   loadTournament();
-
-
 </script>
-
 
 </body>
 </html>
