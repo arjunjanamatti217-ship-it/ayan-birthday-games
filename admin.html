@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Ayan Birthday Games - Admin</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f8;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(
+        135deg,
+        #6c5ce7,
+        #0984e3
+      );
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 5px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow:
+        0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+
+      width: 100%;
+      padding: 11px;
+
+      border:
+        1px solid #ccc;
+
+      border-radius: 8px;
+
+      font-size: 16px;
+
+    }
+
+    button {
+
+      border: 0;
+
+      border-radius: 9px;
+
+      padding: 11px 18px;
+
+      font-size: 15px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .primary {
+      background: #6c5ce7;
+      color: white;
+    }
+
+    .success {
+      background: #00b894;
+      color: white;
+    }
+
+    .danger {
+      background: #d63031;
+      color: white;
+    }
+
+    .secondary {
+      background: #636e72;
+      color: white;
+    }
+
+    .team-card {
+
+      border:
+        2px solid #eee;
+
+      border-radius: 14px;
+
+      padding: 18px;
+
+      margin-top: 20px;
+
+    }
+
+    .team-name-input {
+
+      font-size: 19px;
+
+      font-weight: bold;
+
+      margin-bottom: 15px;
+
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+    }
+
+    th {
+
+      background: #6c5ce7;
+
+      color: white;
+
+      padding: 10px;
+
+    }
+
+    td {
+
+      padding: 6px;
+
+      border-bottom:
+        1px solid #eee;
+
+    }
+
+    td input {
+
+      min-width: 65px;
+
+      text-align: center;
+
+    }
+
+    .player-name {
+
+      min-width: 150px;
+
+      text-align: left;
+
+    }
+
+    .buttons {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+    .status {
+
+      display: none;
+
+      background: #d4edda;
+
+      color: #155724;
+
+      padding: 12px;
+
+      border-radius: 8px;
+
+      margin-top: 15px;
+
+      font-weight: bold;
+
+    }
+
+    .notice {
+
+      background: #fff3cd;
+
+      color: #856404;
+
+      padding: 14px;
+
+      border-radius: 10px;
+
+      margin-bottom: 20px;
+
+    }
+
+    .total {
+
+      font-weight: bold;
+
+      text-align: center;
+
+      min-width: 65px;
+
+    }
+
+    @media(max-width:700px) {
+
+      .container {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      th,
+      td {
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <h1>🎮 Birthday Games Admin</h1>
+
+  <div>
+    Ayan's 11th Birthday
+  </div>
+
+</header>
+
+
+<main class="container">
+
+
+  <div class="notice">
+
+    🧪 <strong>Testing version:</strong>
+
+    Scores are currently stored only
+    in this browser.
+
+    Firebase will be added after
+    we confirm the scoring system
+    works correctly.
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h2>🎯 Current Game</h2>
+
+    <label for="currentGame">
+      Select the game currently being played
+    </label>
+
+    <select id="currentGame">
+
+      <option>Game 1</option>
+      <option>Game 2</option>
+      <option>Game 3</option>
+      <option>Game 4</option>
+      <option>Game 5</option>
+      <option>Game 6</option>
+      <option>Game 7</option>
+
+    </select>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <h2>👥 Teams & Player Scores</h2>
+
+    <div id="teamsContainer">
+    </div>
+
+
+    <div class="buttons">
+
+      <button
+        class="primary"
+        onclick="addTeam()"
+      >
+        + Add Team
+      </button>
+
+      <button
+        class="success"
+        onclick="saveTournament()"
+      >
+        💾 Save Scores
+      </button>
+
+      <button
+        class="secondary"
+        onclick="openScoreboard()"
+      >
+        🏆 View Scoreboard
+      </button>
+
+      <button
+        class="danger"
+        onclick="resetTournament()"
+      >
+        Reset Everything
+      </button>
+
+    </div>
+
+
+    <div
+      id="saveStatus"
+      class="status"
+    >
+      ✅ Scores saved successfully!
+    </div>
+
+  </div>
+
+
+</main>
+
+
+<script>
+
+
+  const NUMBER_OF_PLAYERS = 7;
+
+  const NUMBER_OF_GAMES = 7;
+
+
+  let teams = [];
+
+
+  /*
+   * Create a blank team.
+   */
+
+  function createTeam() {
+
+    return {
+
+      name:
+        "Team " + (teams.length + 1),
+
+      players: Array.from(
+        { length: NUMBER_OF_PLAYERS },
+        (_, playerIndex) => ({
+
+          name:
+            "Player " + (playerIndex + 1),
+
+          scores:
+            Array(NUMBER_OF_GAMES).fill(0)
+
+        })
+      )
+
+    };
+
+  }
+
+
+
+  /*
+   * Add new team.
+   */
+
+  function addTeam() {
+
+    teams.push(
+      createTeam()
+    );
+
+    renderTeams();
+
+  }
+
+
+
+  /*
+   * Remove a team.
+   */
+
+  function removeTeam(teamIndex) {
+
+    const confirmed =
+      confirm(
+        "Remove this team?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    teams.splice(
+      teamIndex,
+      1
+    );
+
+
+    renderTeams();
+
+  }
+
+
+
+  /*
+   * Calculate player's total.
+   */
+
+  function calculatePlayerTotal(player) {
+
+    return player.scores.reduce(
+      (total, score) =>
+        total + Number(score || 0),
+      0
+    );
+
+  }
+
+
+
+  /*
+   * Draw all teams.
+   */
+
+  function renderTeams() {
+
+    const container =
+      document.getElementById(
+        "teamsContainer"
+      );
+
+
+    container.innerHTML = "";
+
+
+    teams.forEach(
+      (team, teamIndex) => {
+
+
+        const teamDiv =
+          document.createElement("div");
+
+
+        teamDiv.className =
+          "team-card";
+
+
+        let playerRows = "";
+
+
+        team.players.forEach(
+          (player, playerIndex) => {
+
+
+            let scoreInputs = "";
+
+
+            for (
+              let gameIndex = 0;
+              gameIndex < NUMBER_OF_GAMES;
+              gameIndex++
+            ) {
+
+
+              scoreInputs += `
+
+                <td>
+
+                  <input
+                    type="number"
+                    min="0"
+
+                    value="${
+                      player.scores[
+                        gameIndex
+                      ]
+                    }"
+
+                    onchange="
+                      updateScore(
+                        ${teamIndex},
+                        ${playerIndex},
+                        ${gameIndex},
+                        this.value
+                      )
+                    "
+                  >
+
+                </td>
+
+              `;
+
+            }
+
+
+            const playerTotal =
+              calculatePlayerTotal(
+                player
+              );
+
+
+            playerRows += `
+
+              <tr>
+
+                <td>
+
+                  <input
+                    class="player-name"
+
+                    value="${
+                      escapeAttribute(
+                        player.name
+                      )
+                    }"
+
+                    onchange="
+                      updatePlayerName(
+                        ${teamIndex},
+                        ${playerIndex},
+                        this.value
+                      )
+                    "
+                  >
+
+                </td>
+
+                ${scoreInputs}
+
+                <td
+                  class="total"
+                  id="
+                    total-${teamIndex}-${playerIndex}
+                  "
+                >
+
+                  ${playerTotal}
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        );
+
+
+        teamDiv.innerHTML = `
+
+          <label>
+            Team Name
+          </label>
+
+
+          <input
+
+            class="team-name-input"
+
+            value="${
+              escapeAttribute(
+                team.name
+              )
+            }"
+
+            onchange="
+              updateTeamName(
+                ${teamIndex},
+                this.value
+              )
+            "
+
+          >
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>Player</th>
+
+                  <th>G1</th>
+                  <th>G2</th>
+                  <th>G3</th>
+                  <th>G4</th>
+                  <th>G5</th>
+                  <th>G6</th>
+                  <th>G7</th>
+
+                  <th>Total</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                ${playerRows}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            style="
+              margin-top:15px;
+              text-align:right;
+            "
+          >
+
+            <button
+              class="danger"
+
+              onclick="
+                removeTeam(
+                  ${teamIndex}
+                )
+              "
+            >
+
+              Remove Team
+
+            </button>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          teamDiv
+        );
+
+      }
+    );
+
+  }
+
+
+
+  /*
+   * Update team name.
+   */
+
+  function updateTeamName(
+    teamIndex,
+    value
+  ) {
+
+    teams[teamIndex].name =
+      value;
+
+  }
+
+
+
+  /*
+   * Update player name.
+   */
+
+  function updatePlayerName(
+    teamIndex,
+    playerIndex,
+    value
+  ) {
+
+    teams[teamIndex]
+      .players[playerIndex]
+      .name = value;
+
+  }
+
+
+
+  /*
+   * Update score.
+   */
+
+  function updateScore(
+    teamIndex,
+    playerIndex,
+    gameIndex,
+    value
+  ) {
+
+
+    const score =
+      Number(value);
+
+
+    teams[teamIndex]
+      .players[playerIndex]
+      .scores[gameIndex] =
+        Number.isFinite(score)
+          ? score
+          : 0;
+
+
+    const player =
+      teams[teamIndex]
+        .players[playerIndex];
+
+
+    const total =
+      calculatePlayerTotal(
+        player
+      );
+
+
+    document.getElementById(
+      `total-${teamIndex}-${playerIndex}`
+    ).textContent =
+      total;
+
+  }
+
+
+
+  /*
+   * Save tournament.
+   */
+
+  function saveTournament() {
+
+
+    const tournament = {
+
+      currentGame:
+
+        document
+          .getElementById(
+            "currentGame"
+          )
+          .value,
+
+      teams:
+        teams,
+
+      lastUpdated:
+
+        new Date()
+          .toLocaleString()
+
+    };
+
+
+    localStorage.setItem(
+
+      "ayanBirthdayTournament",
+
+      JSON.stringify(
+        tournament
+      )
+
+    );
+
+
+    const status =
+      document.getElementById(
+        "saveStatus"
+      );
+
+
+    status.style.display =
+      "block";
+
+
+    setTimeout(
+      () => {
+
+        status.style.display =
+          "none";
+
+      },
+
+      2500
+
+    );
+
+  }
+
+
+
+  /*
+   * Load previously saved scores.
+   */
+
+  function loadTournament() {
+
+
+    const storedData =
+      localStorage.getItem(
+        "ayanBirthdayTournament"
+      );
+
+
+    if (
+      storedData
+    ) {
+
+
+      try {
+
+
+        const tournament =
+          JSON.parse(
+            storedData
+          );
+
+
+        teams =
+          tournament.teams || [];
+
+
+        document.getElementById(
+          "currentGame"
+        ).value =
+
+          tournament.currentGame
+          || "Game 1";
+
+
+      }
+      catch (error) {
+
+
+        console.error(
+          "Could not load saved data",
+          error
+        );
+
+
+      }
+
+    }
+
+
+    /*
+     * Start with two teams
+     * when no saved data exists.
+     */
+
+    if (
+      teams.length === 0
+    ) {
+
+      teams.push(
+        createTeam()
+      );
+
+      teams.push(
+        createTeam()
+      );
+
+    }
+
+
+    renderTeams();
+
+  }
+
+
+
+  /*
+   * Reset all data.
+   */
+
+  function resetTournament() {
+
+
+    const confirmed =
+      confirm(
+
+        "This will delete all teams and scores. Continue?"
+
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    localStorage.removeItem(
+      "ayanBirthdayTournament"
+    );
+
+
+    teams = [];
+
+
+    teams.push(
+      createTeam()
+    );
+
+    teams.push(
+      createTeam()
+    );
+
+
+    document.getElementById(
+      "currentGame"
+    ).value =
+      "Game 1";
+
+
+    renderTeams();
+
+  }
+
+
+
+  /*
+   * Open public scoreboard.
+   */
+
+  function openScoreboard() {
+
+    saveTournament();
+
+    window.open(
+      "index.html",
+      "_blank"
+    );
+
+  }
+
+
+
+  /*
+   * Safely display user-entered
+   * text inside HTML attributes.
+   */
+
+  function escapeAttribute(value) {
+
+    return String(value)
+
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+
+      .replaceAll(
+        "\"",
+        "&quot;"
+      )
+
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+
+      .replaceAll(
+        ">",
+        "&gt;"
+      );
+
+  }
+
+
+
+  /*
+   * Start the application.
+   */
+
+  loadTournament();
+
+
+</script>
+
+
+</body>
+</html>
